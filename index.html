@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>currency converter</title>
+    <link rel="stylesheet" href="mystyle.css">
+</head>
+<body>
+
+    <!--<form name="myform">-->
+    <h1>CURRENCY CONVERTOR</h1>
+
+    From:
+    <select id="from"> 
+        <option value="INR">Indian Rupees</option>
+        <option value="AUD">Australian Dollar</option>
+        <option value="Euro">European Union</option>
+        <option value="JPY">Japanese Yen</option>
+    </select> <br>
+ 
+    To:
+    <select id="to">
+        <option value="USD">US Dollar</option>
+        <option value="GBP">Great British Pound</option>
+        <option value="MUR">Mauritius Rupees</option>
+        <option value="TRY">Turkish Lira</option>
+    </select> <br>
+        
+    </select> <br>
+Amount:<input type="text" id="amount" id="amount">
+<button onclick="convert()">Convert</button>
+<h3 id="result"></h3>
+<!--</form>-->
+
+<script>
+    function convert(){
+        let from;
+        let to =document.getElementById("to").value;
+        let amount=parseInt(document.getElementById("amount").value);
+
+        console.log(to);
+        console.log(amount);
+
+       // fetch('https://v6.exchangerate-api.com/v6/9bfd8de93605e398d03bdab0/latest/USD')//
+        fetch(`https://v6.exchangerate-api.com/v6/9bfd8de93605e398d03bdab0/latest/USD`)
+       
+        .then(resp => resp.json())
+        .then(data => {
+            let rates = data.conversion_rates;
+            //let convRate = rates.INR;
+           // let convRate = rates.INR;//
+            let convRate = rates.AED;
+            //let convRate = rates.Euro;//
+            let result= convRate *amount;
+           // let convRate = rates[to];//
+            document.getElementById("result").innerHTML = "converted amount in "+ to +" is "+result;
+            //let answer = `convert amount in `${} is ${result}`;//
+        })
+    }
+</script>
+</body>
+</html>
